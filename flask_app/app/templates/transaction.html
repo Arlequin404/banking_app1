@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido, {{ session['user'] }}</h1>
+        <form method="POST" action="{{ url_for('home') }}">
+            <label for="transaction_type">Tipo de transacción</label>
+            <select name="transaction_type" required>
+                <option value="deposit">Depósito</option>
+                <option value="withdraw">Retiro</option>
+            </select>
+            <br>
+            <label for="account_type">Tipo de cuenta</label>
+            <select name="account_type" required>
+                <option value="corriente">Corriente</option>
+                <option value="ahorros">Ahorros</option>
+            </select>
+            <br>
+            <label for="amount">Monto</label>
+            <input type="number" name="amount" step="0.01" required>
+            <br>
+            <button type="submit">Procesar</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

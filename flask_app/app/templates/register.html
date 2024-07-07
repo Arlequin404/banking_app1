@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="frame">
+      <div class="nav">
+        <ul class="links">
+          <li class="signin-inactive"><a class="btn" href="{{ url_for('login') }}">Sign in</a></li>
+          <li class="signup-active"><a class="btn">Sign up</a></li>
+        </ul>
+      </div>
+      <div ng-app ng-init="checked = false">
+        <form class="form-signup" method="post" action="{{ url_for('register') }}" name="form">
+          {{ form.hidden_tag() }}
+          <label for="fullname">Full name</label>
+          {{ form.full_name(id="fullname", class="form-styling", placeholder="") }}
+          <label for="email">Email</label>
+          {{ form.email(id="email", class="form-styling", placeholder="") }}
+          <label for="password">Password</label>
+          {{ form.password(id="password", class="form-styling", placeholder="") }}
+          <label for="confirm_password">Confirm password</label>
+          {{ form.confirm_password(id="confirm_password", class="form-styling", placeholder="") }}
+          <div class="btn-animate">
+            <button type="submit" class="btn-signup">Sign Up</button>
+          </div>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

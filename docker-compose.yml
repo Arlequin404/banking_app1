@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  db1:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - db1_data:/var/opt/mssql
+
+  db2:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
+    volumes:
+      - db2_data:/var/opt/mssql
+
+  flask_app:
+    build: ./flask_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db1
+      - db2
+
+  web_server:
+    build: ./web_server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - flask_app
+
+volumes:
+  db1_data:
+  db2_data:
